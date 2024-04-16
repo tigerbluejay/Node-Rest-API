@@ -6,7 +6,7 @@
     "clean": "rimraf dist",
     "build": "tsc",
     "start-server": "node dist/server.js",
-    "start-dev-server": "tsc-watch --onSuccess \"node ./dist/server.js 9001\"",
+    "start-dev-server": "tsc-watch --onSuccess \"node ./dist/server.js 9002\"",
     "dev": "npm-run-all clean build start-dev-server"
   },
   "author": "",
@@ -20,6 +20,9 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "rimraf": "^5.0.5"
+    "pg": "^8.11.5",
+    "rimraf": "^5.0.5",
+    "typeorm": "^0.3.20",
+    "winston": "^3.13.0"
   }
 }

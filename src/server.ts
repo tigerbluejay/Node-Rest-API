@@ -12,6 +12,8 @@ console.log(process.env.PORT);
 import * as express from 'express';
 import {root} from "./routes/root";
 import { isInteger } from './utils';
+import { logger } from "./logger";
+import { AppDataSource } from "./data-source";
 
 const app = express(); // initialize express
 
@@ -29,23 +31,47 @@ function setupExpress() {
 function startServer() {
 
     let port: number;
-    const portArg = process.argv[2]; // the argv array contains the parameters of the process starting at the third element of the
-                                    // array so [2], in position [0] we find the node process that is running, 
-                                    // in position [1] we find the script that we are running
+
+    const portEnv = process.env.PORT,
+    portArg = process.argv[2];
+    // the argv array contains the parameters of the process starting at the third element of the
+    // array so [2], in position [0] we find the node process that is running, 
+    // in position [1] we find the script that we are running
     
-    if (isInteger(portArg)) {
-        port = parseInt(portArg);
+
+    // we first give precedence to environment port variable
+    if (isInteger(portEnv)) {
+      port = parseInt(portEnv);
     }
 
-    if (!port) port = 9000;
+    // if none set, we give precedence to argument port variable
+    if (!port && isInteger(portArg)) {
+      port = parseInt(portArg);
+    }
+
+    // if none set, we set the port variable to 9000
+    if (!port) {
+      port = 9000;
+    }
 
     app.listen(port, () => {
-        console.log(`HTTP REST API Server is now running at http://localhost:${port}`);
+        // console.log(`HTTP REST API Server is now running at http://localhost:${port}`);
+        logger.info(`HTTP REST API Server is now running at http://localhost:${port}`);
+
     })
 }
 
-setupExpress();
-startServer();
+
+AppDataSource.initialize()
+.then(() => {
+  logger.info(`The datasource has been initialized successfully`);
+  setupExpress();
+  startServer();
+  })
+  .catch(err => {
+    logger.info(`Error during datasource initialization`);
+    process.exit(1);
+  })
 
 
 /* package.json notes */
