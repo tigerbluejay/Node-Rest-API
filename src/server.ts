@@ -9,6 +9,7 @@ if (result.error) {
 console.log(process.env.PORT);
 
 // SERVER
+import "reflect-metadata"; // must import it first before importing anything else from typeorm
 import * as express from 'express';
 import {root} from "./routes/root";
 import { isInteger } from './utils';
