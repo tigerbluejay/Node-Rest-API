@@ -15,16 +15,27 @@ import {root} from "./routes/root";
 import { isInteger } from './utils';
 import { logger } from "./logger";
 import { AppDataSource } from "./data-source";
+import { getAllCourses } from "./routes/get-all-courses";
+import { defaultErrorHandler } from "./middlewares/default-error-handler";
 
 const app = express(); // initialize express
 
 
 // setting up express routes and middleware
+// from endpoints to authentication and authorization behavior
 function setupExpress() {
 
     // first express endpoint or route
     // a mapping between a request, a url, and a function
     app.route("/").get(root);
+
+    // second endpoint points to the specified route
+    // handles get requests by calling the getAllCourses function
+    app.route("/api/courses").get(getAllCourses);
+
+    // last link in the middleware chain
+    // this will only work if we used the NextFunction in getAllCourses call
+    app.use(defaultErrorHandler);
 
 }
 

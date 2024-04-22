@@ -6,11 +6,15 @@
     "clean": "rimraf dist",
     "build": "tsc",
     "start-server": "node dist/server.js",
-    "start-dev-server": "tsc-watch --onSuccess \"node ./dist/server.js 9002\"",
+    "start-dev-server": "tsc-watch --onSuccess \"node ./dist/src/server.js 9002\"",
     "dev": "npm-run-all clean build start-dev-server",
 
     "populate-db": "npm-run-all clean build run-populate-db-script",
-    "run-populate-db-script": "node dist/src/models/populate-db.js"
+    "run-populate-db-script": "node dist/src/models/populate-db.js",
+
+    "delete-db": "npm-run-all clean build run-delete-db-script",
+    "run-delete-db-script": "node dist/src/models/delete-db.js"
+
   },
   "author": "",
   "license": "MIT",
