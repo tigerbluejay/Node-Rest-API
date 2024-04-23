@@ -15,3 +15,37 @@
     "level": "error",
     "message": "Default error handler triggered; reason: "
 }
+{
+    "level": "error",
+    "message": "Error calling findCourseByUrl()"
+}
+{
+    "code": "42P01",
+    "driverError": {
+        "code": "42P01",
+        "file": "parse_relation.c",
+        "length": 119,
+        "line": "3648",
+        "name": "error",
+        "position": "57",
+        "routine": "errorMissingRTE",
+        "severity": "ERROR"
+    },
+    "file": "parse_relation.c",
+    "length": 119,
+    "level": "error",
+    "line": "3648",
+    "message": "Default error handler triggered; reason:  missing FROM-clause entry for table \"lesssons\"",
+    "parameters": [
+        52
+    ],
+    "position": "57",
+    "query": "SELECT COUNT(1) AS \"cnt\" FROM \"LESSONS\" \"lessons\" WHERE lesssons.courseId = $1",
+    "routine": "errorMissingRTE",
+    "severity": "ERROR",
+    "stack": "QueryFailedError: missing FROM-clause entry for table \"lesssons\"\n    at PostgresQueryRunner.query (C:\\Users\\josem\\OneDrive\\Escritorio\\24 Js Angular Projects\\Typescript Boot Camp\\Node-Rest-API\\node_modules\\typeorm\\driver\\postgres\\PostgresQueryRunner.js:219:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async SelectQueryBuilder.loadRawResults (C:\\Users\\josem\\OneDrive\\Escritorio\\24 Js Angular Projects\\Typescript Boot Camp\\Node-Rest-API\\node_modules\\typeorm\\query-builder\\SelectQueryBuilder.js:2192:25)\n    at async SelectQueryBuilder.executeCountQuery (C:\\Users\\josem\\OneDrive\\Escritorio\\24 Js Angular Projects\\Typescript Boot Camp\\Node-Rest-API\\node_modules\\typeorm\\query-builder\\SelectQueryBuilder.js:1712:25)\n    at async SelectQueryBuilder.getCount (C:\\Users\\josem\\OneDrive\\Escritorio\\24 Js Angular Projects\\Typescript Boot Camp\\Node-Rest-API\\node_modules\\typeorm\\query-builder\\SelectQueryBuilder.js:770:29)"
+}
+{
+    "level": "error",
+    "message": "Could not find a course with url typescript-bootcamp-v2"
+}

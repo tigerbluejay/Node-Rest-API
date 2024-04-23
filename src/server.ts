@@ -17,6 +17,12 @@ import { logger } from "./logger";
 import { AppDataSource } from "./data-source";
 import { getAllCourses } from "./routes/get-all-courses";
 import { defaultErrorHandler } from "./middlewares/default-error-handler";
+import { findCourseByUrl } from "./routes/find-course-by-url";
+import { findLessonsForCourse } from "./routes/find-lessons-for-course";
+import { updateCourse } from "./routes/update-course";
+
+const cors = require("cors"); // import the cors package
+const bodyParser = require("body-parser"); // import the body-parser package
 
 const app = express(); // initialize express
 
@@ -25,6 +31,14 @@ const app = express(); // initialize express
 // from endpoints to authentication and authorization behavior
 function setupExpress() {
 
+    // middleware: add the cross origin header that tells the browser to accept cross origin requests
+    // delegates the execution of the request to the next item on the middleware chain.
+    app.use(cors({origin:true}));
+
+    app.use(bodyParser.json()); // with json middleware of body parser the body of the message of the request
+                                // is considered valid json, so the middleware is going to call json.parse
+                                // and assign it to the request body
+
     // first express endpoint or route
     // a mapping between a request, a url, and a function
     app.route("/").get(root);
@@ -32,6 +46,13 @@ function setupExpress() {
     // second endpoint points to the specified route
     // handles get requests by calling the getAllCourses function
     app.route("/api/courses").get(getAllCourses);
+
+
+    app.route("/api/courses/:courseUrl").get(findCourseByUrl);
+
+    app.route("/api/courses/:courseId/lessons").get(findLessonsForCourse);
+
+    app.route("/api/courses/:courseId").patch(updateCourse);
 
     // last link in the middleware chain
     // this will only work if we used the NextFunction in getAllCourses call
