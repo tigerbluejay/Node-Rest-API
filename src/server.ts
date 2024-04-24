@@ -20,6 +20,8 @@ import { defaultErrorHandler } from "./middlewares/default-error-handler";
 import { findCourseByUrl } from "./routes/find-course-by-url";
 import { findLessonsForCourse } from "./routes/find-lessons-for-course";
 import { updateCourse } from "./routes/update-course";
+import { createCourse } from "./routes/create-course";
+import { deleteCourseAndLessons } from "./routes/delete-course";
 
 const cors = require("cors"); // import the cors package
 const bodyParser = require("body-parser"); // import the body-parser package
@@ -53,6 +55,10 @@ function setupExpress() {
     app.route("/api/courses/:courseId/lessons").get(findLessonsForCourse);
 
     app.route("/api/courses/:courseId").patch(updateCourse);
+
+    app.route("/api/courses").post(createCourse);
+
+    app.route("/api/courses/:courseId").delete(deleteCourseAndLessons);
 
     // last link in the middleware chain
     // this will only work if we used the NextFunction in getAllCourses call
