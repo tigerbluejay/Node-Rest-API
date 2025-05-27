@@ -65,7 +65,3 @@ Create a .env file in the root directory and define the necessary environment va
 ```bash
 npm start
 ```
-
-Functions are defined to create and delete courses, get courses by url, get lessons for a given course, get all courses and update courses.
-
-Finally, it's worth noting that both logging and default error handling have been implemented.
